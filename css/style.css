@@ -47,3 +47,7 @@ h2 {
 	stroke: red;
 	stroke-width: 1.5px;
 }
+
+.keys {
+	font-weight: bold;
+}
