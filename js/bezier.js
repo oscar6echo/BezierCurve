@@ -218,7 +218,7 @@ function keydown_function() {
 	}
 	// down
 	if (d3.event.keyCode==40) {
-		timestep = timestep_0 / 3;
+		timestep = timestep_0 / 7;
 	}
 	// up
 	if (d3.event.keyCode==38) {
