@@ -4,5 +4,5 @@ Bezier curves, or rather [Casteljau](http://en.wikipedia.org/wiki/Paul_de_Castel
 
 Based [d3.js](https://github.com/mrdoob/three.js).
 
-This is heavily inspired by [Jason Davies]'s page.
+This is heavily inspired by [Jason Davies](http://www.jasondavies.com/animated-bezier/)'s page.
 
