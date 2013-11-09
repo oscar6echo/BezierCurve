@@ -1,0 +1,49 @@
+body {
+	/*font-size:1em;
+	font-weight:400;
+	word-spacing:normal;
+	letter-spacing:normal;
+	text-transform:none;
+	font-family:Verdana, Myriad Web, Syntax, sans-serif;
+	font-size-adjust:.58;
+	color:#000;
+	background:#FFF;
+	line-height:1.58em;
+	border-top:0;
+	border-left:0;
+	border-bottom:0;
+	border-right:0;
+	width:auto;
+	padding:0;*/
+	margin:2em 8% 2em 8%;
+}
+
+h2 {
+	text-align: center;
+	font-size:1.5em;
+	/*font-weight:600;*/
+}
+
+.control {
+	stroke: #000;
+	stroke-width: 0.5px;
+	fill: #ccc;
+}
+
+.controltext {
+	font-size: 0.7em;
+}
+
+.time {
+	font-size: 0.8em;
+}
+
+.line {
+	fill: none;
+}
+
+.curve {
+	fill: none;
+	stroke: red;
+	stroke-width: 1.5px;
+}
