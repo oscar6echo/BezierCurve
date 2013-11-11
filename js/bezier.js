@@ -58,8 +58,10 @@ function update_bezier_curve() {
 }
 
 function update() {
+	// update display every timestep, cf next_step()
 	var bezier_obj = vis.selectAll("g")
-			.data(function(d) { return get_bezier_levels(d, t); });
+			.data(function(d, i) { return get_bezier_levels(d, t); });
+			// .data(function(d, i) { console.log("d="+d+", i="+i); return get_bezier_levels(d, t); });
 
 	bezier_obj.enter()
 		.append("g")
@@ -67,7 +69,7 @@ function update() {
 			.style("stroke", function (d, i) { return color(d, i); });
 
 	var circle = bezier_obj.selectAll("circle")
-			.data(function(d) { return d; });
+			.data(function(d, i) { return d; });
 
 	circle.enter()
 		.append("circle")
@@ -109,14 +111,49 @@ function update() {
 			.text("t=" + t.toFixed(2));
 }
 
+// key function definitions and attach key function to body
+function keydown_function() {
+	console.log("d3.event.keyCode = ", d3.event.keyCode);
+	// right
+	if (d3.event.keyCode==39) {
+		timestep *= 1.1;
+	}
+	// left
+	if (d3.event.keyCode==37) {
+		timestep /= 1.1;
+	}
+	// down
+	if (d3.event.keyCode==40) {
+		timestep = timestep_0 / 7;
+	}
+	// up
+	if (d3.event.keyCode==38) {
+		timestep = timestep_0;
+	}
+	console.log("timestep="+timestep);
+}
+d3.select("body").on("keydown", keydown_function);
+
+
+// manage timer
+function next_step() {
+	t += dir*timestep;
+	if (t<0) {
+		t = 0;
+		dir = 1;
+	}
+	if (t>1) {
+		t = 1;
+		dir = -1;
+	}
+	update();
+	// if (t<-0.05) {clearInterval(myTimer)}
+}
+
 
 // --------------------------------------global variables
 
 var w = 300, h = 325, padding = 10,
-	// initial time in [0, 1]
-	t = 0.5,
-	// time step
-	timestep = .005,
 	// nb of bezier orders from linear (1) to ....
 	nb_order = 6,
 	// array of orders
@@ -133,6 +170,9 @@ var w = 300, h = 325, padding = 10,
 		],
 	// resulting bezier curve to be constructed
 	bezier_curve = {},
+	// initial time in [0, 1]
+	t = 0.5,
+	// time step
 	// 1/timestep is the number of steps to go from t=0 to t=1
 	timestep_0 = 1/200,
 	timestep = timestep_0,
@@ -142,9 +182,14 @@ var w = 300, h = 325, padding = 10,
 	period = 5000;
 
 // color brewer alternative color scale
-var stroke = d3.scale.ordinal().domain(order).range(colorbrewer.Blues[order.length]);
+// var stroke = d3.scale.ordinal().domain(order).range(colorbrewer.PRGn[order.length]);
 var	stroke = d3.scale.category20b();
-function color(d, i) { return d.length >1 ? stroke(i*3) : "red"; }
+function color(d, i) { return d.length >1 ? stroke(1+1*i) : "red"; }
+
+for (var k=0; k<=19; k++) {
+	console.log("k="+k+", stroke="+stroke(k))
+	console.log("k="+k+", color="+color([0, 1], k))
+}
 
 
 // layout
@@ -205,44 +250,6 @@ vis.append("text")
 	.attr("text-anchor", "middle");
 
 
-// key function definitions and attach key function to body
-function keydown_function() {
-	console.log("d3.event.keyCode = ", d3.event.keyCode);
-	// right
-	if (d3.event.keyCode==39) {
-		timestep *= 1.1;
-	}
-	// left
-	if (d3.event.keyCode==37) {
-		timestep /= 1.1;
-	}
-	// down
-	if (d3.event.keyCode==40) {
-		timestep = timestep_0 / 7;
-	}
-	// up
-	if (d3.event.keyCode==38) {
-		timestep = timestep_0;
-	}
-	console.log("timestep="+timestep);
-}
-d3.select("body").on("keydown", keydown_function);
-
-
-// timer definition
-function next_step() {
-	t += dir*timestep;
-	if (t<0) {
-		t = 0;
-		dir = 1;
-	}
-	if (t>1) {
-		t = 1;
-		dir = -1;
-	}
-	update();
-	if (t<-0.05) {clearInterval(myTimer)}
-}
 var myTimer = setInterval(function() { next_step() }, period*timestep);
 
 
