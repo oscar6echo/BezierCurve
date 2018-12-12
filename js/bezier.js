@@ -187,8 +187,8 @@ var	stroke = d3.scale.category20b();
 function color(d, i) { return d.length >1 ? stroke(1+1*i) : "red"; }
 
 for (var k=0; k<=19; k++) {
-	console.log("k="+k+", stroke="+stroke(k))
-	console.log("k="+k+", color="+color([0, 1], k))
+	// console.log("k="+k+", stroke="+stroke(k))
+	// console.log("k="+k+", color="+color([0, 1], k))
 }
 
 
@@ -229,7 +229,6 @@ vis.selectAll("circle.control")
 					.attr("cy", y);
 			})
 			.on("dragend", function() {
-				// bezier_curve = {};
 				delete this.__origin__;
 			}));
 
