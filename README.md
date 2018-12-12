@@ -6,3 +6,4 @@ Based [d3.js](http://d3js.org/).
 
 Heavily inspired by Jason Davies's [page](http://www.jasondavies.com/animated-bezier/).
 
+See live on [http://oscar6echo.github.io/BezierCurve/](http://oscar6echo.github.io/BezierCurve/).
